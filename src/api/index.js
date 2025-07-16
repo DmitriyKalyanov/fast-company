@@ -3,6 +3,6 @@ const API = {
   users,
 };
 
-console.log(API);
+// console.log(API);
 
 export default API;

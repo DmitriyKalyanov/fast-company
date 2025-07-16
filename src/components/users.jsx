@@ -1,13 +1,52 @@
 import API from '../api';
 import { useState } from 'react';
+import 'bootstrap/dist/css/bootstrap.css';
 
 const Users = () => {
-  console.log(API.users.fetchAll());
+  //   console.log(API.users.fetchAll());
   const [users, setUsers] = useState(API.users.fetchAll());
 
   const handleDelete = () => {};
   const renderPhrase = () => {};
-  return <h1>Users</h1>;
+  return (
+    <div>
+      <table className='table'>
+        <thead>
+          <tr>
+            <th scope='col'>Имя</th>
+            <th scope='col'>Качества</th>
+            <th scope='col'>Профессия</th>
+            <th scope='col'>Встретился,раз</th>
+            <th scope='col'>Оценка</th>
+            <th scope='col'> </th>
+          </tr>
+        </thead>
+        <tbody>
+          {users.map((user) => (
+            <tr key={user._id}>
+              <td>{user.name}</td>
+              <td>
+                {user.qualities.map((qualitie) => (
+                  <span
+                    className={'badge m-2 bg-' + qualitie.color}
+                    key={qualitie._id}
+                  >
+                    {qualitie.name}
+                  </span>
+                ))}
+              </td>
+              <td key={user.profession._id}>{user.profession.name}</td>
+              <td>{user.completedMeetings}</td>
+              <td>{user.rate}</td>
+              <td>
+                <button className='btn btn-danger'>Delete</button>
+              </td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
+  );
 };
 
 export default Users;
