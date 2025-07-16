@@ -3,10 +3,11 @@ import { useState } from 'react';
 import 'bootstrap/dist/css/bootstrap.css';
 
 const Users = () => {
-  //   console.log(API.users.fetchAll());
   const [users, setUsers] = useState(API.users.fetchAll());
 
-  const handleDelete = () => {};
+  const handleDelete = (userId) => {
+    setUsers(users.filter((user) => userId !== user._id));
+  };
   const renderPhrase = () => {};
   return (
     <div>
@@ -39,7 +40,12 @@ const Users = () => {
               <td>{user.completedMeetings}</td>
               <td>{user.rate}</td>
               <td>
-                <button className='btn btn-danger'>Delete</button>
+                <button
+                  className='btn btn-danger'
+                  onClick={() => handleDelete(user._id)}
+                >
+                  Delete
+                </button>
               </td>
             </tr>
           ))}
